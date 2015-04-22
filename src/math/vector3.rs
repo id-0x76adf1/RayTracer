@@ -8,6 +8,8 @@ pub struct Vector3 {
     pub z: f64,
 }
 
+pub const ZERO: Vector3 = Vector3 { x: 0.0, y: 0.0, z: 0.0 };
+
 impl Vector3 {
     pub fn new(_x: f64, _y: f64, _z: f64) -> Vector3 {
         Vector3 { x: _x, y: _y, z: _z }
@@ -26,6 +28,10 @@ impl Vector3 {
         self.x *= reciprocal_length;
         self.y *= reciprocal_length;
         self.z *= reciprocal_length;
+    }
+
+    pub fn is_normalized(&self) -> bool {
+        self.length_square() == 1.0
     }
 
     pub fn cross(&self, other: &Vector3) -> Vector3 {
@@ -156,6 +162,14 @@ mod test {
         let mut v = Vector3::new(2.0, 0.0, 0.0);
         v.normalize();
         assert_eq!(v, Vector3::new(1.0, 0.0, 0.0));
+    }
+
+    #[test]
+    fn test_is_normalized() {
+        let v1 = Vector3::new(1.0, 0.0, 0.0);
+        let v2 = Vector3::new(1.0, 2.0, 3.0);
+        assert!(v1.is_normalized());
+        assert!(!v2.is_normalized());
     }
 
     #[test]

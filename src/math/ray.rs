@@ -6,10 +6,10 @@ pub struct Ray {
 }
 
 impl Ray {
-    pub fn new(_origin: Vector3, _direction: Vector3) -> Ray {
+    pub fn new(o: Vector3, d: Vector3) -> Ray {
         Ray {
-            origin: _origin,
-            direction: _direction,
+            origin: o,
+            direction: d,
         }
     }
 
