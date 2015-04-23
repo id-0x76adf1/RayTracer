@@ -24,7 +24,7 @@ impl Vector3 {
     }
 
     pub fn normalize(&mut self) {
-        let reciprocal_length = 1.0 / self.length();
+        let reciprocal_length = self.length().recip();
         self.x *= reciprocal_length;
         self.y *= reciprocal_length;
         self.z *= reciprocal_length;
