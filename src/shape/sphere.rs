@@ -76,5 +76,10 @@ mod test {
         let (hit2, t2) = sphere.hit(&ray2);
         assert!(hit2);
         assert_eq!(t2, 1.0);
+
+        let ray3 = Ray::new(Vector3::new(0.0, -1.0, 0.0), Vector3::new(0.0, 1.0, 0.0));
+        let (hit3, t3) = sphere.hit(&ray3);
+        assert!(hit3);
+        assert_eq!(t2, 1.0);
    }
 }
