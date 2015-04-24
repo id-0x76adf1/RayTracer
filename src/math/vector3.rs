@@ -1,7 +1,7 @@
 use std::cmp::{PartialEq, Eq};
 use std::ops::{Neg, Add, Sub, Mul, Div};
 
-#[derive(Copy, Debug)]
+#[derive(Copy, Clone, Debug)]
 pub struct Vector3 {
     pub x: f64,
     pub y: f64,
@@ -39,16 +39,6 @@ impl Vector3 {
             x: self.y * other.z - self.z * other.y,
             y: self.z * other.x - self.x * other.z,
             z: self.x * other.y - self.y * other.x,
-        }
-    }
-}
-
-impl Clone for Vector3 {
-    fn clone(&self) -> Vector3 {
-        Vector3 {
-            x: self.x,
-            y: self.y,
-            z: self.z,
         }
     }
 }
