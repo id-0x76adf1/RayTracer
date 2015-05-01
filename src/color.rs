@@ -28,12 +28,27 @@ impl RGBColor {
         self.r
     }
 
+    pub fn set_r(&mut self, r: f64) {
+        assert!(0.0 <= r && r <= 1.0);
+        self.r = r;
+    }
+
     pub fn g(&self) -> f64 {
-        self.b
+        self.g
+    }
+
+    pub fn set_g(&mut self, g: f64) {
+        assert!(0.0 <= g && g <= 1.0);
+        self.g = g;
     }
 
     pub fn b(&self) -> f64 {
         self.b
+    }
+
+    pub fn set_b(&mut self, b: f64) {
+        assert!(0.0 <= b && b <= 1.0);
+        self.b = b;
     }
 }
 
@@ -125,6 +140,21 @@ mod test {
         assert_eq!(clamp(2.0, 1.0, 3.0), 2.0);
         assert_eq!(clamp(0.0, 1.0, 3.0), 1.0);
         assert_eq!(clamp(4.0, 1.0, 3.0), 3.0);
+    }
+
+    #[test]
+    fn test_getter_and_setter() {
+        let mut c = RGBColor::new(0.5, 0.6, 0.7);
+        assert_eq!(c.r(), 0.5);
+        assert_eq!(c.g(), 0.6);
+        assert_eq!(c.b(), 0.7);
+
+        c.set_r(0.0);
+        c.set_g(0.0);
+        c.set_b(0.0);
+        assert_eq!(c.r(), 0.0);
+        assert_eq!(c.g(), 0.0);
+        assert_eq!(c.b(), 0.0);
     }
 
     #[test]
