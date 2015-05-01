@@ -2,10 +2,13 @@ mod common;
 mod color;
 mod math;
 mod shape;
+mod world;
+
+use color::RGBColor;
+use world::World;
 
 fn main() {
-    let v1 = math::Vector3::new(1.0, 2.0, 3.0);
-    let v2 = math::Vector3::new(4.0, 5.0, 6.0);
-    let sum = v1 + v2;
-    println!("{:?}", sum);
+    let mut w = World::new(RGBColor::new(0.0, 0.0, 0.0));
+    w.build();
+    w.render_scene();
 }
