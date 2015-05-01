@@ -20,7 +20,7 @@ impl RGBColor {
         RGBColor {
             r: clamp(self.r.powf(p), 0.0, 1.0),
             g: clamp(self.g.powf(p), 0.0, 1.0),
-            b: clamp(self.b.powf(p), 0.0, 1.0)
+            b: clamp(self.b.powf(p), 0.0, 1.0),
         }
     }
 
@@ -54,7 +54,7 @@ impl Add for RGBColor {
         RGBColor {
             r: clamp(self.r + other.r, 0.0, 1.0),
             g: clamp(self.g + other.g, 0.0, 1.0),
-            b: clamp(self.b + other.b, 0.0, 1.0)
+            b: clamp(self.b + other.b, 0.0, 1.0),
         }
     }
 }
@@ -66,7 +66,7 @@ impl Mul<f64> for RGBColor {
         RGBColor {
             r: clamp(self.r * other, 0.0, 1.0),
             g: clamp(self.g * other, 0.0, 1.0),
-            b: clamp(self.b * other, 0.0, 1.0)
+            b: clamp(self.b * other, 0.0, 1.0),
         }
     }
 }
@@ -78,7 +78,7 @@ impl Mul<RGBColor> for f64 {
         RGBColor {
             r: clamp(self * other.r, 0.0, 1.0),
             g: clamp(self * other.g, 0.0, 1.0),
-            b: clamp(self * other.b, 0.0, 1.0)
+            b: clamp(self * other.b, 0.0, 1.0),
         }
     }
 }
@@ -90,7 +90,7 @@ impl Mul for RGBColor {
         RGBColor {
             r: self.r * other.r,
             g: self.g * other.g,
-            b: self.b * other.b
+            b: self.b * other.b,
         }
     }
 }
@@ -102,7 +102,7 @@ impl Div<f64> for RGBColor {
         RGBColor {
             r: clamp(self.r / other, 0.0, 1.0),
             g: clamp(self.g / other, 0.0, 1.0),
-            b: clamp(self.b / other, 0.0, 1.0)
+            b: clamp(self.b / other, 0.0, 1.0),
         }
     }
 }
