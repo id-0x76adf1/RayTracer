@@ -1,4 +1,5 @@
 mod common;
+mod color;
 mod math;
 mod shape;
 
