@@ -3,9 +3,9 @@ use std::ops::{Add, Mul, Div};
 
 #[derive(Copy, Clone, Debug)]
 pub struct RGBColor {
-    pub r: f64,
-    pub g: f64,
-    pub b: f64,
+    r: f64,
+    g: f64,
+    b: f64,
 }
 
 impl RGBColor {
@@ -14,6 +14,26 @@ impl RGBColor {
         assert!(0.0 <= _g && _g <= 1.0);
         assert!(0.0 <= _b && _b <= 1.0);
         RGBColor { r: _r, g: _g, b: _b }
+    }
+
+    pub fn power(&self, p: f64) -> RGBColor {
+        RGBColor {
+            r: clamp(self.r.powf(p), 0.0, 1.0),
+            g: clamp(self.g.powf(p), 0.0, 1.0),
+            b: clamp(self.b.powf(p), 0.0, 1.0)
+        }
+    }
+
+    pub fn r(&self) -> f64 {
+        self.r
+    }
+
+    pub fn g(&self) -> f64 {
+        self.b
+    }
+
+    pub fn b(&self) -> f64 {
+        self.b
     }
 }
 
@@ -75,6 +95,18 @@ impl Mul for RGBColor {
     }
 }
 
+impl Div<f64> for RGBColor {
+    type Output = RGBColor;
+
+    fn div(self, other: f64) -> RGBColor {
+        RGBColor {
+            r: clamp(self.r / other, 0.0, 1.0),
+            g: clamp(self.g / other, 0.0, 1.0),
+            b: clamp(self.b / other, 0.0, 1.0)
+        }
+    }
+}
+
 impl PartialEq for RGBColor {
     fn eq(&self, other: &RGBColor) -> bool {
         self.r == other.r && self.g == other.g && self.b == self.b
@@ -130,5 +162,18 @@ mod test {
 
         assert_eq!(c3 * 2.0, c4);
         assert_eq!(2.0 * c3, c4);
+    }
+
+    #[test]
+    fn test_div() {
+        let c = RGBColor::new(0.5, 0.5, 0.5);
+        assert_eq!(c / 2.0, RGBColor::new(0.25, 0.25, 0.25));
+        assert_eq!(c / 0.001, RGBColor::new(1.0, 1.0, 1.0));
+    }
+
+    #[test]
+    fn test_power() {
+        let c = RGBColor::new(0.5, 0.6, 0.7);
+        assert_eq!(c.power(2.0), RGBColor::new(0.25, 0.36, 0.49));
     }
 }
