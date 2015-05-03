@@ -6,10 +6,12 @@ mod view_plane;
 mod world;
 
 use color::RGBColor;
+use view_plane::ViewPlane;
 use world::World;
 
 fn main() {
-    let mut w = World::new(RGBColor::new(0.0, 0.0, 0.0));
+    let view_plane = ViewPlane::new(640, 480, 1.0, 1.0, color::BLACK);
+    let mut w = World::new(view_plane);
     w.build();
     w.render_scene();
 }

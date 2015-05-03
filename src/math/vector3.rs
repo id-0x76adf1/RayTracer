@@ -8,6 +8,7 @@ pub struct Vector3 {
     pub z: f64,
 }
 
+#[allow(dead_code)]
 pub const ZERO: Vector3 = Vector3 { x: 0.0, y: 0.0, z: 0.0 };
 
 impl Vector3 {

@@ -1,15 +1,16 @@
 use color::RGBColor;
 use shape::GeometricObject;
+use view_plane::ViewPlane;
 
 pub struct World {
-    background_color: RGBColor,
+    view_plane: ViewPlane,
     geometric_objects: Vec<Box<GeometricObject>>,
 }
 
 impl World {
-    pub fn new(color: RGBColor) -> World {
+    pub fn new(_view_plane: ViewPlane) -> World {
         World {
-            background_color: color,
+            view_plane: _view_plane,
             geometric_objects: Vec::new()
         }
     }
