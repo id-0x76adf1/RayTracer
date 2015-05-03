@@ -2,6 +2,7 @@ mod common;
 mod color;
 mod math;
 mod shape;
+mod tracer;
 mod view_plane;
 mod world;
 
