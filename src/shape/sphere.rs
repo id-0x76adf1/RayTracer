@@ -1,3 +1,6 @@
+use std::cell::Cell;
+use color;
+use color::RGBColor;
 use common;
 use math::{Ray, Vector3};
 use shape::GeometricObject;
@@ -6,6 +9,7 @@ use std::f64;
 pub struct Sphere {
     center: Vector3,
     radius: f64,
+    color: Cell<RGBColor>
 }
 
 impl Sphere {
@@ -13,6 +17,7 @@ impl Sphere {
         Sphere {
             center: c,
             radius: r,
+            color: Cell::new(color::BLACK),
         }
     }
 
@@ -53,11 +58,20 @@ impl GeometricObject for Sphere {
 
         (false, f64::MAX)
     }
+
+    fn color(&self) -> RGBColor {
+        self.color.get()
+    }
+
+    fn set_color(&self, color: RGBColor) {
+        self.color.set(color);
+    }
 }
 
 #[cfg(test)]
 mod test {
     use super::Sphere;
+    use color::RGBColor;
     use math::vector3;
     use math::{Ray, Vector3};
     use shape::GeometricObject;
@@ -81,5 +95,13 @@ mod test {
         let (hit3, t3) = sphere.hit(&ray3);
         assert!(hit3);
         assert_eq!(t2, 1.0);
+   }
+
+   #[test]
+   fn test_color() {
+        let sphere = Sphere::new(vector3::ZERO, 1.0);
+        let c = RGBColor::new(0.1, 0.2, 0.3);
+        sphere.set_color(c);
+        assert_eq!(sphere.color(), c);
    }
 }

@@ -1,3 +1,6 @@
+use std::cell::Cell;
+use color;
+use color::RGBColor;
 use common;
 use math::{Ray, Vector3};
 use shape::GeometricObject;
@@ -6,6 +9,7 @@ use std::f64;
 pub struct Plane {
     point: Vector3,
     normal: Vector3,
+    color: Cell<RGBColor>,
 }
 
 impl Plane {
@@ -17,6 +21,7 @@ impl Plane {
         Plane {
             point: p,
             normal: normal,
+            color: Cell::new(color::BLACK),
         }
     }
 
@@ -38,11 +43,20 @@ impl GeometricObject for Plane {
             (false, f64::MAX)
         }
     }
+
+    fn color(&self) -> RGBColor {
+        self.color.get()
+    }
+
+    fn set_color(&self, color: RGBColor) {
+        self.color.set(color);
+    }
 }
 
 #[cfg(test)]
 mod test {
     use super::Plane;
+    use color::RGBColor;
     use math::vector3;
     use math::{Ray, Vector3};
     use shape::GeometricObject;
@@ -67,5 +81,13 @@ mod test {
         let (hit2, t2) = plane2.hit(&ray2);
         assert!(hit2);
         assert_eq!(t2, 1.0);
+    }
+
+    #[test]
+    fn test_color() {
+        let p = Plane::new(vector3::ZERO, Vector3::new(1.0, 2.0, 3.0));
+        let c = RGBColor::new(0.1, 0.2, 0.3);
+        p.set_color(c);
+        assert_eq!(p.color(), c);
     }
 }
