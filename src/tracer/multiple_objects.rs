@@ -17,7 +17,17 @@ impl MultipleObjects {
 }
 
 impl Tracer for MultipleObjects {
-    fn trace_ray(&self, ray: &Ray) -> RGBColor {
-        RGBColor::new(0.0, 0.0, 0.0)
+    fn trace_ray(&self, ray: &Ray) -> Option<RGBColor> {
+        let mut result = None;
+        let shade_record = self.world.hit_objects(ray);
+        match shade_record {
+            Some(s) => {
+                if s.hit_an_object() {
+                    result = Some(s.color());
+                }
+            },
+            None => { }
+        }
+        result
     }
 }
