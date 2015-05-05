@@ -31,7 +31,7 @@ impl Sphere {
 }
 
 impl GeometricObject for Sphere {
-    fn hit(&self, ray: &Ray) -> (bool, f64) {
+    fn hit(&self, ray: &Ray) -> (bool, Option<f64>) {
         let delta = ray.origin() - self.center;
         let a = ray.direction().length_square();
         let b = 2.0 * delta * ray.direction();
@@ -40,23 +40,23 @@ impl GeometricObject for Sphere {
         let discriminant = b.powi(2) - 4.0 * a * c;
 
         if discriminant < 0.0 {
-            return (false, f64::MAX);
+            return (false, None);
         } else {
             let denominator = 2.0 * a;
             let root = discriminant.sqrt();
 
             let t = (-b - root) / denominator;
             if t > common::EPSILON {
-                return (true, t);
+                return (true, Some(t));
             }
 
             let t = (-b + root) / denominator;
             if t > common::EPSILON {
-                return (true, t);
+                return (true, Some(t));
             }
         }
 
-        (false, f64::MAX)
+        (false, None)
     }
 
     fn color(&self) -> RGBColor {
@@ -84,17 +84,17 @@ mod test {
         let ray1 = Ray::new(Vector3::new(0.0, 1.0, 0.0), Vector3::new(0.0, 1.0, 0.0));
         let (hit1, t1) = sphere.hit(&ray1);
         assert!(!hit1);
-        assert_eq!(t1, f64::MAX);
+        assert_eq!(t1, None);
 
         let ray2 = Ray::new(vector3::ZERO, Vector3::new(0.0, 1.0, 0.0));
         let (hit2, t2) = sphere.hit(&ray2);
         assert!(hit2);
-        assert_eq!(t2, 1.0);
+        assert_eq!(t2, Some(1.0));
 
         let ray3 = Ray::new(Vector3::new(0.0, -1.0, 0.0), Vector3::new(0.0, 1.0, 0.0));
         let (hit3, t3) = sphere.hit(&ray3);
         assert!(hit3);
-        assert_eq!(t2, 1.0);
+        assert_eq!(t2, Some(1.0));
    }
 
    #[test]
