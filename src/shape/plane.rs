@@ -3,8 +3,8 @@ use color;
 use color::RGBColor;
 use common;
 use math::{Ray, Vector3};
+use shade_record::{ShadeRecord, ShadeRecordBuilder};
 use shape::GeometricObject;
-use std::f64;
 
 pub struct Plane {
     point: Vector3,
@@ -35,12 +35,16 @@ impl Plane {
 }
 
 impl GeometricObject for Plane {
-    fn hit(&self, ray: &Ray) -> (bool, Option<f64>) {
+    fn hit(&self, ray: &Ray) -> (bool, Option<f64>, Option<ShadeRecord>) {
         let t = ((self.point - ray.origin()) * self.normal) / (ray.direction() * self.normal);
         if t > common::EPSILON {
-            (true, Some(t))
+            let s = ShadeRecordBuilder::new()
+                        .hit_an_object(true)
+                        .color(self.color())
+                        .finalize();
+            (true, Some(t), Some(s))
         } else {
-            (false, None)
+            (false, None, None)
         }
     }
 
@@ -60,7 +64,6 @@ mod test {
     use math::vector3;
     use math::{Ray, Vector3};
     use shape::GeometricObject;
-    use std::f64;
 
     #[test]
     fn test_new() {
@@ -72,15 +75,26 @@ mod test {
     fn test_hit() {
         let plane1 = Plane::new(vector3::ZERO, Vector3::new(1.0, 1.0, 1.0));
         let ray1 = Ray::new(vector3::ZERO, Vector3::new(0.0, 1.0, 0.0));
-        let (hit1, t1) = plane1.hit(&ray1);
+        let (hit1, t1, s1) = plane1.hit(&ray1);
         assert!(!hit1);
-        assert_eq!(t1, None);
+        assert!(t1.is_none());
+        assert!(s1.is_none());
 
         let plane2 = Plane::new(vector3::ZERO, Vector3::new(0.0, 1.0, 0.0));
+        let c = RGBColor::new(0.1, 0.2, 0.3);
+        plane2.set_color(c);
+
         let ray2 = Ray::new(Vector3::new(0.0, -1.0, 0.0), Vector3::new(0.0, 2.0, 0.0));
-        let (hit2, t2) = plane2.hit(&ray2);
+        let (hit2, t2, s2) = plane2.hit(&ray2);
         assert!(hit2);
         assert_eq!(t2, Some(1.0));
+        match s2 {
+            Some(s) => {
+                assert!(s.hit_an_object());
+                assert_eq!(s.color(), c);
+            },
+            None => assert!(false)
+        }
     }
 
     #[test]

@@ -1,6 +1,7 @@
 use color::RGBColor;
 use math::Vector3;
 
+#[derive(Copy, Clone, Debug)]
 pub struct ShadeRecord {
     hit_an_object: bool,
     local_hit_point: Option<Vector3>,
