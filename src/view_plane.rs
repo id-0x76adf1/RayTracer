@@ -20,7 +20,7 @@ impl ViewPlane {
         let capacity = w * h;
         let mut pixels: Vec<RGBColor> = Vec::with_capacity(capacity);
 
-        for i in 0..capacity {
+        for _ in 0..capacity {
             pixels.push(color);
         }
 

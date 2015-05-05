@@ -9,7 +9,7 @@ impl Ray {
     pub fn new(o: Vector3, d: Vector3) -> Ray {
         let mut direction = d;
         if !direction.is_normalized() {
-            direction.normalize()
+            direction.normalize();
         }
         Ray {
             origin: o,

@@ -1,6 +1,7 @@
 mod common;
 mod color;
 mod math;
+mod shade_record;
 mod shape;
 mod tracer;
 mod view_plane;
