@@ -47,8 +47,11 @@ impl GeometricObject for Sphere {
             let root = discriminant.sqrt();
 
             let build_result = |t: f64, color: RGBColor| {
+                let hit_point = ray.origin() + t * ray.direction();
                 let s = ShadeRecordBuilder::new()
                     .hit_an_object(true)
+                    .local_hit_point(hit_point)
+                    .normal((hit_point - self.center()) / self.radius())
                     .color(color)
                     .finalize();
                 (true, Some(t), Some(s))
@@ -92,19 +95,21 @@ mod test {
         let c = RGBColor::new(0.1, 0.2, 0.3);
         sphere.set_color(c);
 
-        let ray1 = Ray::new(Vector3::new(0.0, 1.0, 0.0), Vector3::new(0.0, 1.0, 0.0));
+        let ray1 = Ray::new(Vector3::new(0.0, 1.0, 0.0), vector3::UP);
         let (hit1, t1, s1) = sphere.hit(&ray1);
         assert!(!hit1);
         assert!(t1.is_none());
         assert!(s1.is_none());
 
-        let ray2 = Ray::new(vector3::ZERO, Vector3::new(0.0, 1.0, 0.0));
+        let ray2 = Ray::new(vector3::ZERO, vector3::UP);
         let (hit2, t2, s2) = sphere.hit(&ray2);
         assert!(hit2);
         assert_eq!(t2, Some(1.0));
         match s2 {
             Some(s) => {
                 assert!(s.hit_an_object());
+                assert_eq!(s.local_hit_point(), Vector3::new(0.0, 1.0, 0.0));
+                assert_eq!(s.normal(), vector3::UP);
                 assert_eq!(s.color(), c);
             },
             None => assert!(false)

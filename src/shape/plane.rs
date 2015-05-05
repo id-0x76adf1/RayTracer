@@ -40,6 +40,8 @@ impl GeometricObject for Plane {
         if t > common::EPSILON {
             let s = ShadeRecordBuilder::new()
                         .hit_an_object(true)
+                        .local_hit_point(ray.origin() + t * ray.direction())
+                        .normal(self.normal())
                         .color(self.color())
                         .finalize();
             (true, Some(t), Some(s))
@@ -74,13 +76,13 @@ mod test {
     #[test]
     fn test_hit() {
         let plane1 = Plane::new(vector3::ZERO, Vector3::new(1.0, 1.0, 1.0));
-        let ray1 = Ray::new(vector3::ZERO, Vector3::new(0.0, 1.0, 0.0));
+        let ray1 = Ray::new(vector3::ZERO, vector3::UP);
         let (hit1, t1, s1) = plane1.hit(&ray1);
         assert!(!hit1);
         assert!(t1.is_none());
         assert!(s1.is_none());
 
-        let plane2 = Plane::new(vector3::ZERO, Vector3::new(0.0, 1.0, 0.0));
+        let plane2 = Plane::new(vector3::ZERO, vector3::UP);
         let c = RGBColor::new(0.1, 0.2, 0.3);
         plane2.set_color(c);
 
@@ -91,6 +93,8 @@ mod test {
         match s2 {
             Some(s) => {
                 assert!(s.hit_an_object());
+                assert_eq!(s.local_hit_point(), vector3::ZERO);
+                assert_eq!(s.normal(), vector3::UP);
                 assert_eq!(s.color(), c);
             },
             None => assert!(false)

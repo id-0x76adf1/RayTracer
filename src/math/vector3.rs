@@ -10,6 +10,8 @@ pub struct Vector3 {
 
 #[allow(dead_code)]
 pub const ZERO: Vector3 = Vector3 { x: 0.0, y: 0.0, z: 0.0 };
+#[allow(dead_code)]
+pub const UP: Vector3 = Vector3 { x: 0.0, y: 1.0, z: 0.0 };
 
 impl Vector3 {
     pub fn new(_x: f64, _y: f64, _z: f64) -> Vector3 {
