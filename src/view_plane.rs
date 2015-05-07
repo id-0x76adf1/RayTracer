@@ -3,8 +3,8 @@ use color::RGBColor;
 
 #[derive(Copy, Clone, Debug)]
 pub struct PixelPosition {
-    x: usize,
-    y: usize,
+    pub x: usize,
+    pub y: usize,
 }
 
 pub struct ViewPlane {

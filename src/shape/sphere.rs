@@ -5,7 +5,6 @@ use common;
 use math::{Ray, Vector3};
 use shade_record::{ShadeRecord, ShadeRecordBuilder};
 use shape::GeometricObject;
-use std::f64;
 
 pub struct Sphere {
     center: Vector3,
@@ -87,7 +86,6 @@ mod test {
     use math::vector3;
     use math::{Ray, Vector3};
     use shape::GeometricObject;
-    use std::f64;
 
     #[test]
     fn test_hit() {

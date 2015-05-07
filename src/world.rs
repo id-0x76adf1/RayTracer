@@ -1,27 +1,17 @@
 use std::f64;
-use color::RGBColor;
 use math::Ray;
 use shade_record::ShadeRecord;
 use shape::GeometricObject;
-use view_plane::ViewPlane;
 
 pub struct World {
-    view_plane: ViewPlane,
     geometric_objects: Vec<Box<GeometricObject>>,
 }
 
 impl World {
-    pub fn new(_view_plane: ViewPlane) -> World {
+    pub fn new() -> World {
         World {
-            view_plane: _view_plane,
-            geometric_objects: Vec::new()
+            geometric_objects: Vec::new(),
         }
-    }
-
-    pub fn build(&mut self) {
-    }
-
-    pub fn render_scene(&mut self) {
     }
 
     pub fn hit_objects(&self, ray: &Ray) -> Option<ShadeRecord> {
