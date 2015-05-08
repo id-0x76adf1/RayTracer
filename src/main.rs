@@ -21,6 +21,8 @@ fn main() {
     let world = Rc::new(RefCell::new(World::new()));
     let tracer = Box::new(MultipleObjects::new(world.clone())) as Box<Tracer>;
     let renderer = Renderer::new(tracer);
+
+    world.borrow().build();
     renderer.render_world(&mut view_plane);
     ppm::write("output", view_plane.width(), view_plane.height(), view_plane.pixels());
 
