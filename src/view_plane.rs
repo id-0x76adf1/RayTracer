@@ -48,6 +48,10 @@ impl ViewPlane {
     pub fn gamma(&self) -> f32 {
         self.gamma
     }
+
+    pub fn pixels(&self) -> &Vec<RGBColor> {
+        &self.pixels
+    }
 }
 
 impl Index<PixelPosition> for ViewPlane {
