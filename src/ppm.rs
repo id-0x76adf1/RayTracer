@@ -15,7 +15,7 @@ pub fn write(name: &str, width: usize, height: usize, data: &Vec<RGBColor>) {
         .ok()
         .expect("write header failed");
 
-    for r in 0..height {
+    for r in (0..height).rev() {
         for c in 0..width {
             let i = r * width + c;
             let color = data[i];

@@ -9,15 +9,17 @@ pub struct RGBColor {
 }
 
 #[allow(dead_code)]
-pub const BLACK: RGBColor = RGBColor { r: 0.0, g: 0.0, b: 0.0 };
+pub const BLACK:    RGBColor = RGBColor { r: 0.0, g: 0.0, b: 0.0 };
 #[allow(dead_code)]
-pub const WHITE: RGBColor = RGBColor { r: 1.0, g: 1.0, b: 1.0 };
+pub const WHITE:    RGBColor = RGBColor { r: 1.0, g: 1.0, b: 1.0 };
 #[allow(dead_code)]
-pub const RED:   RGBColor = RGBColor { r: 1.0, g: 0.0, b: 0.0 };
+pub const RED:      RGBColor = RGBColor { r: 1.0, g: 0.0, b: 0.0 };
 #[allow(dead_code)]
-pub const GREEN: RGBColor = RGBColor { r: 0.0, g: 1.0, b: 0.0 };
+pub const GREEN:    RGBColor = RGBColor { r: 0.0, g: 1.0, b: 0.0 };
 #[allow(dead_code)]
-pub const BLUE:  RGBColor = RGBColor { r: 0.0, g: 0.0, b: 1.0 };
+pub const BLUE:     RGBColor = RGBColor { r: 0.0, g: 0.0, b: 1.0 };
+#[allow(dead_code)]
+pub const YELLOW:   RGBColor = RGBColor { r: 1.0, g: 1.0, b: 0.0 };
 
 impl RGBColor {
     pub fn new(_r: f64, _g: f64, _b: f64) -> RGBColor {
